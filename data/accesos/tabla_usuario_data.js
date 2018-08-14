@@ -7,8 +7,8 @@ var dataTablaUsuario = {
     errorGuardarAjax: "Error en guardar los datos en el servidor",
     success: "Se cargado guardo los cambios en los usuarios",
   },
-  urlGuardar: BASE_URL + "usuario/guardar",
-  urlListar: BASE_URL + "usuario/listar",
+  urlGuardar: BASE_URL + "accesos/usuario/guardar",
+  urlListar: BASE_URL + "accesos/usuario/listar",
   fila: {
     id: { // llave de REST
       tipo: "td_id",
@@ -44,13 +44,6 @@ var dataTablaUsuario = {
       clase: "fa-pencil",
       estilos: "padding-left: 10px;",
       url: BASE_URL + 'accesos/#/usuario/editar/'/*+ usuario_id*/,
-    },
-    {
-      tipo: "href",
-      claseOperacion: "asociar-sistemas",
-      clase: "fa-laptop",
-      estilos: "padding-left: 10px;",
-      url: BASE_URL + 'accesos/#/usuario/sistema/'/*+ usuario_id*/,
     },
     {
       tipo: "href",
