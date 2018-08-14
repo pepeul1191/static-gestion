@@ -9,7 +9,6 @@ var accesosRouter = Backbone.Router.extend({
   usuarioView: null,
   usuarioLogView: null,
   usuarioDetalleView: null,
-  usuarioSistemaView: null,
   usuarioRolPermisoView: null,
   initialize: function() {
   },
@@ -20,7 +19,6 @@ var accesosRouter = Backbone.Router.extend({
     "rol" : "rolIndex",
     "usuario/logs/:usuario_id" : "usuarioLog",
     "usuario/editar/:usuario_id" : "usuarioDetalle",
-    "usuario/sistema/:usuario_id" : "usuarioSistema",
     "usuario/roles_permisos/:usuario_id" : "usuarioRolPermiso",
     "usuario" : "usuarioIndex",
     "*actions" : "default",
@@ -82,25 +80,24 @@ var accesosRouter = Backbone.Router.extend({
     this.usuarioDetalleView.context.estados = this.usuarioDetalleView.estadoUsuariosSelect.toJSON();
     this.usuarioDetalleView.render();
   },
-  usuarioSistema: function(usuario_id){
-    if(this.usuarioSistemaView == null){
-      this.usuarioSistemaView = new UsuarioSistemaView(dataUsuarioSistemaView);
-    }
-    this.usuarioSistemaView.render();
-    this.usuarioSistemaView.tablaSistema.urlListar =
-      limpiarURL(BASE_URL + "usuario/sistema/" , usuario_id);
-    this.usuarioSistemaView.usuarioId = usuario_id;
-    this.usuarioSistemaView.tablaSistema.listar(usuario_id);
-    this.usuarioSistemaView.tablaSistema.usuarioId = usuario_id;
-  },
   usuarioRolPermiso: function(usuario_id){
     if(this.usuarioRolPermisoView == null){
       this.usuarioRolPermisoView = new UsuarioRolPermisoView(dataUsuarioRolPermisoView);
     }
     this.usuarioRolPermisoView.set("usuario_id", usuario_id);
-    this.usuarioRolPermisoView.context.sistemas = this.usuarioRolPermisoView.cbmSistemas();
     this.usuarioRolPermisoView.context.usuario_id = usuario_id;
     this.usuarioRolPermisoView.render();
+
+
+    this.usuarioRolPermisoView.tablaRol.urlListar =
+      limpiarURL(BASE_URL + "accesos/usuario/rol/" , usuario_id);
+    this.usuarioRolPermisoView.tablaRol.listar();
+    this.usuarioRolPermisoView.tablaRol.usuarioId = usuario_id;
+    //llenar tabla de permisos
+    this.usuarioRolPermisoView.tablaPermiso.urlListar =
+      limpiarURL(BASE_URL + "accesos/usuario/permiso/" , usuario_id);
+    this.usuarioRolPermisoView.tablaPermiso.listar();
+    this.usuarioRolPermisoView.tablaPermiso.usuarioId = usuario_id;
   },
 });
 

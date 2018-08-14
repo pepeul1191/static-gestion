@@ -2,14 +2,14 @@ var UsuarioDetalleView = ModalView.extend({
   usuarioId: null,
   events: {
     // se está usando asignacion dinamica de eventos en el constructor
-    "keyup #txtUsuario": "validarUsuarioRepetido", 
-    "focusout #txtUsuario": "validarUsuarioLleno", 
-    "keyup #txtCorreo": "validarCorreoRepetido", 
-    "focusout #txtCorreo": "validarCorreoFormato", 
-    "keyup #txtContraseniaAntgua": "validarContraseniaAntigua", 
-    "focusout #txtContraseniaAntgua": "validarContraseniaLleno", 
-    "focusout #txtContraseniaNueva": "validarContraseniaAntiguaDiferente", 
-    "focusout #txtContraseniaNuevaRepetida": "validarContraseniaIgual", 
+    "keyup #txtUsuario": "validarUsuarioRepetido",
+    "focusout #txtUsuario": "validarUsuarioLleno",
+    "keyup #txtCorreo": "validarCorreoRepetido",
+    "focusout #txtCorreo": "validarCorreoFormato",
+    "keyup #txtContraseniaAntgua": "validarContraseniaAntigua",
+    "focusout #txtContraseniaAntgua": "validarContraseniaLleno",
+    "focusout #txtContraseniaNueva": "validarContraseniaAntiguaDiferente",
+    "focusout #txtContraseniaNuevaRepetida": "validarContraseniaIgual",
     "click #btnGuardarUsuarioCorreo": "guardarUsuarioCorreo",
     "click #btnCambiarContrasenia": "cambiarContrasenia"
   },
@@ -31,7 +31,7 @@ var UsuarioDetalleView = ModalView.extend({
     var models = []; // para evitar que el primero sea nulo
     $.ajax({
       type: "GET",
-      url: BASE_URL + "estado_usuario/listar",
+      url: BASE_URL + "accesos/estado_usuario/listar",
       data: {},
       headers: {
         [CSRF_KEY]: CSRF,
@@ -60,7 +60,7 @@ var UsuarioDetalleView = ModalView.extend({
     var viewInstance = this;
     $.ajax({
       type: "GET",
-      url: BASE_URL + "usuario/obtener_usuario_correo/" + viewInstance.get("usuario_id"),
+      url: BASE_URL + "accesos/usuario/obtener_usuario_correo/" + viewInstance.get("usuario_id"),
       data: {},
       headers: {
         [CSRF_KEY]: CSRF,
@@ -86,7 +86,7 @@ var UsuarioDetalleView = ModalView.extend({
 	  usuario_temp.usuario  = $("#txtUsuario").val(),
      	$.ajax({
      		type: "POST",
-     		url: BASE_URL + "usuario/nombre_repetido",
+     		url: BASE_URL + "accesos/usuario/nombre_repetido",
      		data: {
            data: JSON.stringify(usuario_temp)
         }, //"data=" + JSON.stringify(usuario_temp),
@@ -120,7 +120,7 @@ var UsuarioDetalleView = ModalView.extend({
 	  usuario_temp.contrasenia  = $("#txtContraseniaAntgua").val();
     $.ajax({
       type: "POST",
-      url: BASE_URL + "usuario/contrasenia_repetida",
+      url: BASE_URL + "accesos/usuario/contrasenia_repetida",
       data: {
         data:JSON.stringify(usuario_temp),
       },
@@ -167,7 +167,7 @@ var UsuarioDetalleView = ModalView.extend({
 	  usuario_temp.correo  = $("#txtCorreo").val(),
     $.ajax({
       type: "POST",
-      url: BASE_URL + "usuario/correo_repetido",
+      url: BASE_URL + "accesos/usuario/correo_repetido",
       data: {
         data: JSON.stringify(usuario_temp)
       }, //"data=" + JSON.stringify(usuario_temp),
@@ -200,7 +200,7 @@ var UsuarioDetalleView = ModalView.extend({
      		$("#txtCorreo").parent().find("span").html("Tiene que ingresar un correo");
      		this.model.datos_generales_valido = false;
 		}
-	}, 
+	},
 	validarContraseniaLleno: function(event) {
 		if($("#txtContraseniaAntgua").val() == ""){
 			$("#txtContraseniaAntgua").addClass("is-invalid");
@@ -211,7 +211,7 @@ var UsuarioDetalleView = ModalView.extend({
      		$("#txtContraseniaAntgua").parent().find("span").html("");
      		this.model.datos_contrasenias_valido = true;
 		}
-	}, 	
+	},
 	validarContraseniaAntiguaDiferente: function(event){
 		this.validarContraseniaLleno();
 		if($("#txtContraseniaAntgua").val() == $("#txtContraseniaNueva").val()){
@@ -223,7 +223,7 @@ var UsuarioDetalleView = ModalView.extend({
      		$("#txtContraseniaNueva").parent().find("span").html("");
      		this.model.datos_contrasenias_valido = true;
 		}
-	}, 
+	},
 	validarContraseniaIgual: function(event) {
 		this.validarContraseniaLleno();
 		if($("#txtContraseniaNueva").val() != $("#txtContraseniaNuevaRepetida").val()){
@@ -235,14 +235,14 @@ var UsuarioDetalleView = ModalView.extend({
      		$("#txtContraseniaNuevaRepetida").parent().find("span").html("");
      		this.model.datos_contrasenias_valido = true;
 		}
-	}, 
+	},
 	validarContraseniaRepetidoLleno: function(event) {
 		if($("#txtContraseniaNueva").val() == ""){
 			$("#txtContraseniaNueva").addClass("is-invalid");
      		$("#txtContraseniaNueva").parent().find("span").html("Tiene que confirmar la contrasña ingresada");
      		this.model.contrasenia_valido = false;
 		}
-	}, 
+	},
 	validarCorreoFormato: function(event) {
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     var rpta = re.test($("#txtCorreo").val());
@@ -255,7 +255,7 @@ var UsuarioDetalleView = ModalView.extend({
       $("#txtCorreo").parent().find("span").html("");
       this.model.correo_valido = true;
     }
-	}, 
+	},
 	guardarUsuarioCorreo: function(event){
 		this.validarUsuarioRepetido();
 		this.validarCorreoRepetido();
@@ -266,7 +266,7 @@ var UsuarioDetalleView = ModalView.extend({
 			//console.log(this.model.toJSON());
 			$.ajax({
         type: "POST",
-        url: BASE_URL + "usuario/guardar_usuario_correo",
+        url: BASE_URL + "accesos/usuario/guardar_usuario_correo",
         data: {
           usuario : JSON.stringify(this.datosGeneralesToJSON())
         },
@@ -293,7 +293,7 @@ var UsuarioDetalleView = ModalView.extend({
         }
       });
 		}else{
-			
+
 		}
   },
   datosGeneralesToJSON: function() {
@@ -314,7 +314,7 @@ var UsuarioDetalleView = ModalView.extend({
 		if(this.model.datos_contrasenias_valido == true){
 			$.ajax({
         type: "POST",
-        url: BASE_URL + "usuario/guardar_contrasenia",
+        url: BASE_URL + "accesos/usuario/guardar_contrasenia",
         data: {
           contrasenia: JSON.stringify(this.datosContraseniasToJSON())
         },
@@ -341,7 +341,7 @@ var UsuarioDetalleView = ModalView.extend({
         }
       });
 		}else{
-			
+
 		}
   },
   datosContraseniasToJSON: function() {
