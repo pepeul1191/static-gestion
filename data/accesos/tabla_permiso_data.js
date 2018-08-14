@@ -7,8 +7,8 @@ var dataTablaPermiso = {
     errorGuardarAjax: "Error en guardar los datos en el servidor",
     success: "Se cargado guardo los cambios en los autores",
   },
-  urlGuardar: BASE_URL + "permiso/guardar",
-  urlListar: BASE_URL + "permiso/listar/",
+  urlGuardar: BASE_URL + "accesos/permiso/guardar",
+  urlListar: BASE_URL + "accesos/permiso/listar",
   fila: {
     id: { // llave de REST
       tipo: "td_id",

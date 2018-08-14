@@ -4,10 +4,7 @@ function limpiarURL(url_original, parametro){
 
 var accesosRouter = Backbone.Router.extend({
   moduloView: null,
-  sistemaView: null,
-  sistemaMenuView: null,
-  sistemaPermisoView: null,
-  sistemaRolView: null,
+  permisoView: null,
   usuarioView: null,
   usuarioLogView: null,
   usuarioDetalleView: null,
@@ -18,9 +15,7 @@ var accesosRouter = Backbone.Router.extend({
   routes: {
     "": "index",
     "modulo" : "moduloIndex",
-    "sistema/menu/:sistema_id" : "sistemaMenu",
-    "sistema/permiso/:sistema_id" : "sistemaPermiso",
-    "sistema/rol/:sistema_id" : "sistemaRol",
+    "permiso" : "permisoIndex",
     "usuario/logs/:usuario_id" : "usuarioLog",
     "usuario/editar/:usuario_id" : "usuarioDetalle",
     "usuario/sistema/:usuario_id" : "usuarioSistema",
@@ -42,44 +37,13 @@ var accesosRouter = Backbone.Router.extend({
     this.moduloView.render();
     this.moduloView.tablaModulo.listar();
   },
-  //sistema
-  sistemaIndex: function(){
-    if(this.sistemaView == null){
-      this.sistemaView = new SistemaView();
+  //permiso
+  permisoIndex: function(){
+    if(this.permisoView == null){
+      this.permisoView = new PermisoView();
     }
-    this.sistemaView.render();
-    this.sistemaView.tablaSistema.listar();
-  },
-  sistemaMenu: function(sistema_id){
-    if(this.sistemaMenuView == null){
-      this.sistemaMenuView = new SistemaMenuView(dataSistemaMenuView);
-    }
-    this.sistemaMenuView.render();
-    this.sistemaMenuView.tablaModulo.urlListar =
-      limpiarURL(BASE_URL + "modulo/listar/" , sistema_id);
-    this.sistemaMenuView.sistemaId = sistema_id;
-    this.sistemaMenuView.tablaModulo.listar(sistema_id);
-  },
-  sistemaPermiso: function(sistema_id){
-    if(this.sistemaPermisoView == null){
-      this.sistemaPermisoView = new SistemaPermisoView(dataSistemaPermisoView);
-    }
-    this.sistemaPermisoView.render();
-    this.sistemaPermisoView.tablaPermiso.urlListar =
-      limpiarURL(BASE_URL + "permiso/listar/" , sistema_id);
-    this.sistemaPermisoView.sistemaId = sistema_id;
-    this.sistemaPermisoView.tablaPermiso.listar(sistema_id);
-  },
-  sistemaRol: function(sistema_id){
-    if(this.sistemaRolView == null){
-      this.sistemaRolView = new SistemaRolView(dataSistemaRolView);
-    }
-    this.sistemaRolView.render();
-    this.sistemaRolView.tablaRol.urlListar =
-      limpiarURL(BASE_URL + "rol/listar/" , sistema_id);
-    this.sistemaRolView.sistemaId = sistema_id;
-    this.sistemaRolView.tablaRol.listar(sistema_id);
-    this.sistemaRolView.tablaRolPermiso.sistemaId = sistema_id;
+    this.permisoView.render();
+    this.permisoView.tablaPermiso.listar();
   },
   //usuario
   usuarioIndex: function(){
