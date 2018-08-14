@@ -5,6 +5,7 @@ function limpiarURL(url_original, parametro){
 var accesosRouter = Backbone.Router.extend({
   moduloView: null,
   permisoView: null,
+  rolView: null,
   usuarioView: null,
   usuarioLogView: null,
   usuarioDetalleView: null,
@@ -16,6 +17,7 @@ var accesosRouter = Backbone.Router.extend({
     "": "index",
     "modulo" : "moduloIndex",
     "permiso" : "permisoIndex",
+    "rol" : "rolIndex",
     "usuario/logs/:usuario_id" : "usuarioLog",
     "usuario/editar/:usuario_id" : "usuarioDetalle",
     "usuario/sistema/:usuario_id" : "usuarioSistema",
@@ -44,6 +46,14 @@ var accesosRouter = Backbone.Router.extend({
     }
     this.permisoView.render();
     this.permisoView.tablaPermiso.listar();
+  },
+  //rol
+  rolIndex: function(){
+    if(this.rolView == null){
+      this.rolView = new RolView();
+    }
+    this.rolView.render();
+    this.rolView.tablaRol.listar();
   },
   //usuario
   usuarioIndex: function(){
