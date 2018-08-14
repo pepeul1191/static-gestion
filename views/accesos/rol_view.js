@@ -56,7 +56,7 @@ var RolView = Backbone.View.extend({
   verPermisos: function(event){
     var rolId = event.target.parentElement.parentElement.firstChild.innerHTML;
     this.tablaRolPermiso.urlListar =
-      limpiarURL(BASE_URL + "rol/permiso/listar/" , this.tablaRolPermiso.sistemaId + "/" + rolId);
+      limpiarURL(BASE_URL + "accesos/rol/permiso/listar/" , rolId);
     this.tablaRolPermiso.rolId = rolId;
     this.tablaRolPermiso.limpiarBody();
     this.tablaRolPermiso.listar();
