@@ -21,7 +21,7 @@ var SistemaView = Backbone.View.extend({
 		var data = { };
 		var template_compiled = null;
 		$.ajax({
-		   url: STATICS_URL + 'templates/sistema.html',
+		   url: STATICS_URL + 'templates/accesos/sistema.html',
 		   type: "GET",
 		   async: false,
 		   success: function(source) {

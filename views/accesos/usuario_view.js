@@ -20,7 +20,7 @@ var UsuarioView = Backbone.View.extend({
 		var data = { };
 		var template_compiled = null;
 		$.ajax({
-		   url: STATICS_URL + 'templates/usuario.html',
+		   url: STATICS_URL + 'templates/accesos/usuario.html',
 		   type: "GET",
 		   async: false,
 		   success: function(source) {
