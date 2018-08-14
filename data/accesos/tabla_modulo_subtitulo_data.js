@@ -7,8 +7,8 @@ var dataTablaSubtitulo = {
     errorGuardarAjax: "Error en guardar los datos en el servidor",
     success: "Se cargado guardo los cambios en los autores",
   },
-  urlGuardar: BASE_URL + "subtitulo/guardar",
-  urlListar: BASE_URL + "subtitulo/listar/",
+  urlGuardar: BASE_URL + "accesos/subtitulo/guardar",
+  urlListar: BASE_URL + "accesos/subtitulo/listar/",
   fila: {
     id: { // llave de REST
       tipo: "td_id",
