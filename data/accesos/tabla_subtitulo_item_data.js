@@ -7,8 +7,8 @@ var dataTablaItem = {
     errorGuardarAjax: "Error en guardar los datos en el servidor",
     success: "Se cargado guardo los cambios en los autores",
   },
-  urlGuardar: BASE_URL + "item/guardar",
-  urlListar: BASE_URL + "item/listar/",
+  urlGuardar: BASE_URL + "accesos/item/guardar",
+  urlListar: BASE_URL + "accesos/item/listar/",
   fila: {
     id: { // llave de REST
       tipo: "td_id",
