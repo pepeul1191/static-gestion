@@ -3,6 +3,7 @@ function limpiarURL(url_original, parametro){
 }
 
 var accesosRouter = Backbone.Router.extend({
+  moduloView: null,
   sistemaView: null,
   sistemaMenuView: null,
   sistemaPermisoView: null,
@@ -16,22 +17,30 @@ var accesosRouter = Backbone.Router.extend({
   },
   routes: {
     "": "index",
-    "sistema" : "sistemaIndex",
+    "modulo" : "moduloIndex",
     "sistema/menu/:sistema_id" : "sistemaMenu",
     "sistema/permiso/:sistema_id" : "sistemaPermiso",
     "sistema/rol/:sistema_id" : "sistemaRol",
     "usuario/logs/:usuario_id" : "usuarioLog",
-    "usuario/editar/:usuario_id" : "usuarioDetalle", 
-    "usuario/sistema/:usuario_id" : "usuarioSistema", 
-    "usuario/roles_permisos/:usuario_id" : "usuarioRolPermiso", 
+    "usuario/editar/:usuario_id" : "usuarioDetalle",
+    "usuario/sistema/:usuario_id" : "usuarioSistema",
+    "usuario/roles_permisos/:usuario_id" : "usuarioRolPermiso",
     "usuario" : "usuarioIndex",
     "*actions" : "default",
   },
   index: function(){
-    window.location.href = BASE_URL + "accesos/#/sistema";
+    window.location.href = BASE_URL + "accesos/#/modulo";
   },
   default: function() {
     //window.location.href = BASE_URL + "error/access/404";
+  },
+  //modulo
+  moduloIndex: function(){
+    if(this.moduloView == null){
+      this.moduloView = new ModuloView();
+    }
+    this.moduloView.render();
+    this.moduloView.tablaModulo.listar();
   },
   //sistema
   sistemaIndex: function(){
@@ -46,7 +55,7 @@ var accesosRouter = Backbone.Router.extend({
       this.sistemaMenuView = new SistemaMenuView(dataSistemaMenuView);
     }
     this.sistemaMenuView.render();
-    this.sistemaMenuView.tablaModulo.urlListar = 
+    this.sistemaMenuView.tablaModulo.urlListar =
       limpiarURL(BASE_URL + "modulo/listar/" , sistema_id);
     this.sistemaMenuView.sistemaId = sistema_id;
     this.sistemaMenuView.tablaModulo.listar(sistema_id);
@@ -56,7 +65,7 @@ var accesosRouter = Backbone.Router.extend({
       this.sistemaPermisoView = new SistemaPermisoView(dataSistemaPermisoView);
     }
     this.sistemaPermisoView.render();
-    this.sistemaPermisoView.tablaPermiso.urlListar = 
+    this.sistemaPermisoView.tablaPermiso.urlListar =
       limpiarURL(BASE_URL + "permiso/listar/" , sistema_id);
     this.sistemaPermisoView.sistemaId = sistema_id;
     this.sistemaPermisoView.tablaPermiso.listar(sistema_id);
@@ -66,7 +75,7 @@ var accesosRouter = Backbone.Router.extend({
       this.sistemaRolView = new SistemaRolView(dataSistemaRolView);
     }
     this.sistemaRolView.render();
-    this.sistemaRolView.tablaRol.urlListar = 
+    this.sistemaRolView.tablaRol.urlListar =
       limpiarURL(BASE_URL + "rol/listar/" , sistema_id);
     this.sistemaRolView.sistemaId = sistema_id;
     this.sistemaRolView.tablaRol.listar(sistema_id);
@@ -104,7 +113,7 @@ var accesosRouter = Backbone.Router.extend({
       this.usuarioSistemaView = new UsuarioSistemaView(dataUsuarioSistemaView);
     }
     this.usuarioSistemaView.render();
-    this.usuarioSistemaView.tablaSistema.urlListar = 
+    this.usuarioSistemaView.tablaSistema.urlListar =
       limpiarURL(BASE_URL + "usuario/sistema/" , usuario_id);
     this.usuarioSistemaView.usuarioId = usuario_id;
     this.usuarioSistemaView.tablaSistema.listar(usuario_id);
