@@ -17,7 +17,8 @@ var dataLibroUpload = {
   extraData: [
     {"llave": "nombre", "domId": "txtNombreArchivo"},
   ],
-  maxSize: 3545850, //bytes
+  maxSize: 3545850, //bytes,
+  method: "POST",
   allowTypes: ["application/pdf"],
   model: new Archivo(),
 };
